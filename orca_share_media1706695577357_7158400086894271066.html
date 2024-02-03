@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox Form</title>
+  <link rel="stylesheet" href="./app.css" />
+</head>
+<h1>Choose your Interests</h1>
+<body>
+
+  <form>
+    <label><strong>DIY Robotics:</strong> <input type="checkbox" name="interest" value="HUMSS_DIY Robotics"></label>
+    <label><strong>Coding and App Development:</strong> <input type="checkbox" name="interest" value="HUMSS_Coding and App Development"></label>
+    <label><strong>Political Engagement:</strong> <input type="checkbox" name="interest" value="HUMSS_Political Engagement"></label>
+    <label><strong>Technology Innovation:</strong> <input type="checkbox" name="interest" value="HUMSS_Technology Innovation"></label>
+    <label><strong>Engineering Design:</strong> <input type="checkbox" name="interest" value="HUMSS_Engineering Design"></label>
+    <label><strong>Data Analysis:</strong> <input type="checkbox" name="interest" value="HUMSS_Data Analysis"></label>
+    <label><strong>Environmental Advocacy:</strong> <input type="checkbox" name="interest" value="HUMSS_Environmental Advocacy"></label>
+    <label><strong>Media Production:</strong> <input type="checkbox" name="interest" value="HUMSS_Media Production"></label>
+
+    <label><strong>Creative Writing:</strong> <input type="checkbox" name="interest" value="STEM_Creative Writing"></label>
+    <label><strong>Social Advocacy:</strong> <input type="checkbox" name="interest" value="STEM_Social Advocacy"></label>
+    <label><strong>Historical Research:</strong> <input type="checkbox" name="interest" value="STEM_Historical Research"></label>
+    <label><strong>Philosophy Exploration:</strong> <input type="checkbox" name="interest" value="STEM_Philosophy Exploration"></label>
+    <label><strong>Science Exploration:</strong> <input type="checkbox" name="interest" value="STEM_Science Exploration"></label>
+    <label><strong>Psychology Interest:</strong> <input type="checkbox" name="interest" value="STEM_Psychology Interest"></label>
+    <label><strong>Language Learning:</strong> <input type="checkbox" name="interest" value="STEM_Language Learning"></label>
+    <label><strong>Math Enthusiast:</strong> <input type="checkbox" name="interest" value="STEM_Math Enthusiast"></label>
+
+    <label><strong>Welding and Metalwork:</strong> <input type="checkbox" name="interest" value="TVL_Welding and Metalwork"></label>
+    <label><strong>DIY Welding Projects:</strong> <input type="checkbox" name="interest" value="TVL_DIY Welding Projects"></label>
+    <label><strong>Automotive Fabrication:</strong> <input type="checkbox" name="interest" value="TVL_Automotive Fabrication"></label>
+    <label><strong>Electrical Work:</strong> <input type="checkbox" name="interest" value="TVL_Electrical Work"></label>
+    <label><strong>Welding Repair and Maintenance:</strong> <input type="checkbox" name="interest" value="TVL_Welding Repair and Maintenance"></label>
+    <label><strong>Culinary Arts:</strong> <input type="checkbox" name="interest" value="TVL_Culinary Arts"></label>
+    <label><strong>Structural Welding:</strong> <input type="checkbox" name="interest" value="TVL_Structural Welding"></label>
+    <label><strong>Welding Artisan Entrepreneurship:</strong> <input type="checkbox" name="interest" value="TVL_Welding Artisan Entrepreneurship"></label>
+
+    <label><strong>Custom Metal Furniture:</strong> <input type="checkbox" name="interest" value="SMAW_Custom Metal Furniture"></label>
+    <label><strong>Automotive Maintenance:</strong> <input type="checkbox" name="interest" value="SMAW_Automotive Maintenance"></label>
+    <label><strong>Fashion Design and Sewing:</strong> <input type="checkbox" name="interest" value="SMAW_Fashion Design and Sewing"></label>
+    <label><strong>Metal Sculpture Design:</strong> <input type="checkbox" name="interest" value="SMAW_Metal Sculpture Design"></label>
+    <label><strong>Tourism and Hospitality:</strong> <input type="checkbox" name="interest" value="SMAW_Tourism and Hospitality"></label>
+    <label><strong>Metal Artistry:</strong> <input type="checkbox" name="interest" value="SMAW_Metal Artistry"></label>
+    <label><strong>Graphic Design:</strong> <input type="checkbox" name="interest" value="SMAW_Graphic Design"></label>
+    <label><strong>Agricultural Practices:</strong> <input type="checkbox" name="interest" value="SMAW_Agricultural Practices"></label>
+
+    <button id="submitBtn" disabled>Submit</button>
+  </form>
+
+  <script>
+var selectedCount = 0;
+var maxCheckboxes = 3;
+var selectedValues = [];
+function handleCheckboxClick(checkbox) {
+  if (checkbox.checked) {
+    if (selectedCount < maxCheckboxes) {
+      selectedCount++;
+      selectedValues.push(checkbox.value);
+      disableExcessCheckboxes(checkbox.value);
+    } else {
+      checkbox.checked = false;
+    }
+  } else {
+    selectedCount--;
+    selectedValues = selectedValues.filter(value => value !== checkbox.value);
+    enableAllCheckboxes();
+  }
+  updateSubmitButton();
+}
+function disableExcessCheckboxes(group) {
+  var checkboxes = document.querySelectorAll('input[name="interest"][value^="' + group.split('_')[1] + '"]');
+  checkboxes.forEach(function (checkbox) {
+    if (!selectedValues.includes(checkbox.value)) {
+      checkbox.disabled = true;
+    }
+  });
+}
+function enableAllCheckboxes() {
+  var checkboxes = document.querySelectorAll('input[name="interest"]');
+  checkboxes.forEach(function (checkbox) {
+    checkbox.disabled = false;
+  });
+}
+function updateSubmitButton() {
+  var submitButton = document.getElementById("submitBtn");
+  submitButton.disabled = selectedCount !== maxCheckboxes;
+  submitButton.onclick = function () {
+    var redirectValue = getRedirectValue();
+    if (redirectValue) {
+      window.location.href = redirectValue + ".html";
+    }
+  };
+}
+function getRedirectValue() {
+  var stemCount = 0;
+  var smawCount = 0;
+  selectedValues.forEach(function (value) {
+    if (value.includes("STEM")) {
+      stemCount++;
+    } else if (value.includes("SMAW")) {
+      smawCount++;
+    }
+  });
+  if (stemCount > smawCount) {
+    return "stem";
+  } else if (smawCount > stemCount) {
+    return "smaw";
+  } else {
+    // If counts are equal, you can define a default behavior here
+    return ""; // Replace with your default behavior
+  }
+}
+var checkboxes = document.querySelectorAll('input[name="interest"]');
+checkboxes.forEach(function (checkbox) {
+  checkbox.addEventListener("click", function () {
+    handleCheckboxClick(checkbox);
+  });
+});
+  </script>
+
+</body>
+
+</html>

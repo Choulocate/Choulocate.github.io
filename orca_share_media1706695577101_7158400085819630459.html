@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><title>Group Selection</title><script>
+  function checkSelection() {
+      let totalSelected = 0;
+      const maxTotalSelections = 3;
+      let humssSelected = 0;
+      let stemSelected = 0;
+      let tvlSelected = 0;
+      let smawSelected = 0;
+      const humssItems = document.getElementsByName('humss');
+      const stemItems = document.getElementsByName('stem');
+      const tvlItems = document.getElementsByName('tvl');
+      const smawItems = document.getElementsByName('smaw');
+
+      const allItems = document.querySelectorAll('input[type="checkbox"]');
+
+
+    allItems.forEach(item => {
+          if (item.checked) {
+              totalSelected++;
+              if (totalSelected > maxTotalSelections) {
+                  item.checked = false; // Uncheck the item if the limit is exceeded
+              }
+          }
+      });
+      
+      for (let i = 0; i < humssItems.length; i++) {
+          if (humssItems[i].checked) {
+              humssSelected++;
+          }
+      }
+      for (let i = 0; i < stemItems.length; i++) {
+          if (stemItems[i].checked) {
+              stemSelected++;
+          }
+      }
+      for (let i = 0; i < tvlItems.length; i++) {
+          if (tvlItems[i].checked) {
+              tvlSelected++;
+          }
+      }
+      for (let i = 0; i < smawItems.length; i++) {
+          if (smawItems[i].checked) {
+              smawSelected++;
+          }
+      }
+      const selectedCounts = [humssSelected, stemSelected, tvlSelected, smawSelected];
+      const maxSelected = Math.max(...selectedCounts);
+      const maxIndex = selectedCounts.indexOf(maxSelected);
+      if (maxSelected === 0) {
+          alert('Please select at least one item.');
+        } else if (totalSelected > maxTotalSelections) {
+          alert('You can only select up to three items.');
+      } else {
+          switch (maxIndex) {
+              case 0:
+                  window.location.href = 'humss.html';
+                  break;
+              case 1:
+                  window.location.href = 'stem.html';
+                  break;
+              case 2:
+                  window.location.href = 'tvl.html';
+                  break;
+              case 3:
+                  window.location.href = 'smaw.html';
+                  break;
+              default:
+                  break;
+          }
+      }
+  }
+
+
+</script></head><body><h3>Select Interests:</h3>
+
+<form>
+  
+  <input type="checkbox" name="humss" value="DIY Robotics"> DIY Robotics<br>
+  <input type="checkbox" name="humss" value="Coding and App Development"> Coding and App Development<br>
+  <input type="checkbox" name="humss" value="Political Engagement"> Political Engagement<br>
+  <input type="checkbox" name="humss" value="Technology Innovation"> Technology Innovation<br>
+  <input type="checkbox" name="humss" value="Engineering Design"> Engineering Design<br>
+  <input type="checkbox" name="humss" value="Data Analysis"> Data Analysis<br>
+  <input type="checkbox" name="humss" value="Environmental Advocacy"> Environmental Advocacy<br>
+  <input type="checkbox" name="humss" value="Media Production"> Media Production<br>
+  
+
+  <input type="checkbox" name="stem" value="Creative Writing"> Creative Writing<br>
+  <input type="checkbox" name="stem" value="Social Advocacy"> Social Advocacy<br>
+  <input type="checkbox" name="stem" value="Historical Research"> Historical Research<br>
+  <input type="checkbox" name="stem" value="Philosophy Exploration"> Philosophy Exploration<br>
+  <input type="checkbox" name="stem" value="Science Exploration"> Science Exploration<br>
+  <input type="checkbox" name="stem" value="Psychology Interest"> Psychology Interest<br>
+  <input type="checkbox" name="stem" value="Language Learning"> Language Learning<br>
+  <input type="checkbox" name="stem" value="Math Enthusiast"> Math Enthusiast<br>
+  
+  
+  <input type="checkbox" name="tvl" value="Welding and Metalwork"> Welding and Metalwork<br>
+  <input type="checkbox" name="tvl" value="DIY Welding Projects"> DIY Welding Projects<br>
+  <input type="checkbox" name="tvl" value="Automotive Fabrication"> Automotive Fabrication<br>
+  <input type="checkbox" name="tvl" value="Electrical Work"> Electrical Work<br>
+  <input type="checkbox" name="tvl" value="Welding Repair and Maintenance"> Welding Repair and Maintenance<br>
+  <input type="checkbox" name="tvl" value="Culinary Arts"> Culinary Arts<br>
+  <input type="checkbox" name="tvl" value="Structural Welding"> Structural Welding<br>
+  <input type="checkbox" name="tvl" value="Welding Artisan Entrepreneurship"> Welding Artisan Entrepreneurship<br>
+  
+  
+  
+  <input type="checkbox" name="smaw" value="Custom Metal Furniture"> Custom Metal Furniture<br>
+  <input type="checkbox" name="smaw" value="Automotive Maintenance"> Automotive Maintenance<br>
+  <input type="checkbox" name="smaw" value="Fashion Design and Sewing"> Fashion Design and Sewing<br>
+  <input type="checkbox" name="smaw" value="Metal Sculpture Design"> Metal Sculpture Design<br>
+  <input type="checkbox" name="smaw" value="Tourism and Hospitality"> Tourism and Hospitality<br>
+  <input type="checkbox" name="smaw" value="Metal Artistry"> Metal Artistry<br>
+  <input type="checkbox" name="smaw" value="Graphic Design"> Graphic Design<br>
+  <input type="checkbox" name="smaw" value="Agricultural Practices"> Agricultural Practices<br
+  ><br><button type="button" onclick="checkSelection()">Submit</button>
+</form></body></html>
